@@ -1,9 +1,11 @@
+# project02_01
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-img_path_format = 'Fig2.22({}).jpg'
+img_path_format = 'Fig2.22({})'
 sav_path = 'halftoning.png'
+img_folder = 'img/'
 
 class Halftoning:
     def __init__(self, img):
@@ -14,7 +16,7 @@ class Halftoning:
         self.halftone = np.zeros((10, 9), dtype=np.uint8)
         lst = (1, 8, 0, 6, 2, 5, 7, 3, 4)
         for i in range(1,10):
-            self.halftone[i, lst[:i]] = 1
+            self.halftone[i, lst[:i]] = 255
 
         self.img = img
         self.r, self.c = img.shape
@@ -37,12 +39,13 @@ class Halftoning:
 
 for i, ch in enumerate('abc'):
     # 读入一张灰度图
-    img = cv2.imread(img_path_format.format(ch), cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread(img_path_format.format(ch)+'.jpg', cv2.IMREAD_GRAYSCALE)
     # 显示灰度图
     plt.subplot(3, 2, 2*i+1)
     plt.imshow(img, cmap='gray')
     plt.title('Original Image ({})'.format(ch))
     plt.axis('off')
+    cv2.imwrite(img_folder+img_path_format.format(ch)+'_gray.jpg', img)
 
     halftoning = Halftoning(img)()
     # 显示halftoning后的图像
@@ -50,6 +53,7 @@ for i, ch in enumerate('abc'):
     plt.imshow(halftoning, cmap='gray')
     plt.title('Halftoning Image ({})'.format(ch))
     plt.axis('off')
+    cv2.imwrite(img_folder+img_path_format.format(ch)+'_halftoning.jpg', halftoning)
 
 # 显示图像和直方图
 plt.suptitle('DIP2E 02-01 Halftoning')
