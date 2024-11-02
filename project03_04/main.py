@@ -16,6 +16,8 @@ def img_filter(img: np.ndarray, kernel: np.ndarray) -> np.ndarray:
     img_out = np.clip(img_out, 0, 255).astype('uint8')
     return img_out
 
+
+
 import cv2
 
 img_path = 'Fig3.08(a).jpg'

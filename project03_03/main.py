@@ -10,6 +10,8 @@ img_mul = lambda imgA, imgB: np.clip(np.multiply(imgA.astype('int16'), imgB), 0,
 ## 除法，注意此处使用 imgA / imgB * 255
 img_div = lambda imgA, imgB: np.clip(np.divide(imgA.astype('float'), imgB), 0, 255).astype('uint8')
 
+
+
 import cv2
 
 imgB_path = 'Fig3.15(a)4.jpg'
