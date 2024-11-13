@@ -15,7 +15,7 @@ def img_filter(img: np.ndarray, kernel: np.ndarray) -> np.ndarray:
             img_out[i, j] = np.dot(img[i:i+h, j:j+w].ravel(), kernel)
     img_out = np.clip(img_out, 0, 255).astype('uint8')
     return img_out
-
+img_pad_33 = lambda img: np.pad(img, ((1, 1), (1, 1)), 'constant')
 
 
 import cv2
@@ -29,7 +29,7 @@ laplacian = np.array([[0, 1, 0],
                       [1, -4, 1],
                       [0, 1, 0]])
 # 图像滤波
-img_lap = img_filter(img, laplacian)
+img_lap = img_filter(img_pad_33(img), laplacian)
 # 显示图像
 cv2.imwrite('img/origin.jpg', img)
 cv2.imwrite('img/laplacian.jpg', img_lap)
